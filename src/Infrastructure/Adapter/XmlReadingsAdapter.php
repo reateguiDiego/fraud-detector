@@ -18,7 +18,10 @@ class XmlReadingsAdapter implements ReadingsLoaderInterface
         $readings = [];
 
         foreach ($xml->reading as $item) {
-            $readings[] = new Reading((string)$item['client'], (string)$item['month'], (int)$item);
+            $readings[] = new Reading(
+                (string) $item->attributes()->clientID,
+                (string) $item->attributes()->period,
+                (int) $item);
         }
 
         return $readings;
