@@ -28,6 +28,11 @@ class DetectFraudCommand extends Command
     {
         $filepath = $input->getArgument('filepath');
 
+        if (!file_exists($filepath)) {
+            $output->writeln('<error>Error: the file ' . $filepath . ' does not exist. </error>');
+            return Command::FAILURE;
+        }
+
         try {
             $results = $this->useCase->execute($filepath);
 
