@@ -19,17 +19,18 @@ class DetectSuspiciousReadingsUseCase
     public function execute(string $filePath): array
     {
         // 1. get the adapter that supports the file
+        $normalizedPath = str_replace('\\', '/', $filePath);
         $loader = null;
 
         foreach ($this->loaders as $l) {
-            if ($l->supports($filePath)) {
+            if ($l->supports($normalizedPath)) {
                 $loader = $l;
                 break;
             }
         }
 
         if (!$loader) {
-            throw new \InvalidArgumentException("No adapter was found for the file: " . $filePath);
+            throw new \InvalidArgumentException("No adapter was found for the file: " . $normalizedPath);
         }
 
         // 2. load raw data

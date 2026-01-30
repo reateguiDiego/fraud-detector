@@ -16,12 +16,19 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
+
+    _instanceof:
+        App\Domain\Port\ReadingsLoaderInterface:
+            tags: ['app.readings_loader']
+
     App\:
         resource: '../src/'
+        exclude:
+            - '../src/Domain/Model/'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
     App\Application\Service\DetectSuspiciousReadingsUseCase:
         arguments:
-            $loaders: !tagged_iterator App\Domain\Port\ReadingsLoaderInterface
+            $loaders: !tagged_iterator app.readings_loader
