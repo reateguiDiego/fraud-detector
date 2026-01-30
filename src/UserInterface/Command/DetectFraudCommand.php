@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'app-detect-fraud', description: 'Detect suspicious readings in a file')]
+#[AsCommand(name: 'app:detect-fraud', description: 'Detect suspicious readings from a file')]
 class DetectFraudCommand extends Command
 {
     public function __construct(
@@ -21,15 +21,15 @@ class DetectFraudCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument('filename', InputArgument::REQUIRED, 'File name (CSV or XML)');
+        $this->addArgument('filepath', InputArgument::REQUIRED, 'File path (CSV or XML)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $filename = $input->getArgument('filename');
+        $filepath = $input->getArgument('filepath');
 
         try {
-            $results = $this->useCase->execute($filename);
+            $results = $this->useCase->execute($filepath);
 
             if (empty($results)) {
                 $output->writeln('<info>No suspicious readings were detected.</info>');
