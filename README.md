@@ -95,10 +95,33 @@ Tests are located in the tests/ directory.
 PROJECT STRUCTURE
 -----------------
 
-- bin/        Console and test runners
-- config/     Symfony configuration
-- src/        Application source code
-- tests/      Automated tests
+    -bin
+    -config
+    -src
+        -Application
+            -Service
+                -DetectSuspiciousReadingsUseCase.php
+        -Domain
+            -Model
+                -Reading.php
+            -Port
+                -ReadingsLoaderInterface.php
+            -Service
+                -FraudDetector.php
+        -Infrastructure
+            -Adapter
+                -CsvReadingsAdapter.php
+                -XmlReadingsAdapter.php
+        -UserInterface
+            -Command
+                -DetectFraudCommand.php
+    -tests
+        -Domain
+            -Service
+                -FraudDetectorTest.php
+        -Fixtures
+            -2016-readings.csv
+            -2016-readings.xml
 
 --------------------------------------------------------------------
 
