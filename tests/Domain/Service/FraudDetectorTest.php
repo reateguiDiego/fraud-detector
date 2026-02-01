@@ -15,12 +15,12 @@ class FraudDetectorTest extends TestCase
 
         // set 10 regular readings
         for ($i = 0; $i < 10; $i++) {
-            $readings[] = new Reading('client-1', 'Month', 100);
+            $readings[] = new Reading('client-1', sprintf('2026-%02d', $i + 1), 100);
         }
 
         // set 2 suspicious readings above and under the median
-        $readings[] = new Reading('client-1', 'Nov', 200);
-        $readings[] = new Reading('client-1', 'Dec', 40);
+        $readings[] = new Reading('client-1', '2026-11', 200);
+        $readings[] = new Reading('client-1', '2026-12', 40);
 
         $result = $detector->check($readings);
 
